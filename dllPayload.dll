@@ -1,0 +1,42 @@
+#include <windows.h>
+#include <iostream>
+
+BOOL WINAPI DLLMain(
+	HANDLE hModule,
+	DWORD ulReasonForCall,
+	LPVOID lpReserved
+){
+	switch (ulReasonForCall){
+		case DLL_PROCESS_ATTACHED:
+			//When the dll is attached to a process
+			//Here is where the dll injection code is residing
+			MessageBox(
+				NULL,
+				"Bruh",
+				"This MessageBox was injected by a dll",
+				0x00000000L
+			);
+			cout << "bruh";
+			break;
+
+		case DLL_PROCESS_DETACHED:
+			//When the dll is detached
+			//Remove everything that is necessary after getting uninjected from the dll
+			break;
+
+		case DLL_THREAD_ATTACHED:
+			//When the dll is attached to a thread
+			MessageBox(
+				NULL,
+				"Bruh",
+				"This MessageBox was injected by a dll",
+				MB_OK
+			);
+			break;
+
+		case DLL_THREAD_DETACHED:
+			//When the dll is detached from a thread
+			break;
+
+	return TRUE;
+}
